@@ -14,8 +14,8 @@ function PlayPage({ isVisible, onClose, passData }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/api/tv/${id}`);
-                const genre = await axios.get(`http://localhost:3001/api/video/genre/${id}`);
+                const response = await axios.get(`https://entertainmentbackendott.onrender.com/api/tv/${id}`);
+                const genre = await axios.get(`https://entertainmentbackendott.onrender.com/api/video/genre/${id}`);
                 setVideoKey(response.data.videoKey);
                 setKey(response.data.videoKey.key)
                 setData(genre.data.videoKey);

@@ -24,7 +24,7 @@ const Trending = () => {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await axios.get(`http://localhost:3001/trending/${userName}`);
+            const response = await axios.get(`https://entertainmentbackendott.onrender.com/trending/${userName}`);
             // console.log(response.data);
             dispatch(getTrending(response.data));
         } catch (err) {
@@ -42,7 +42,7 @@ const handleAddBookmark = (value, type) => {
       // console.log('token is empty...! Please Login First');
       setshowModel(true)
   } else {        
-      axios.post('http://localhost:3001/bookmark', { email: userName, video_id: value, type: type })
+      axios.post('https://entertainmentbackendott.onrender.com/bookmark', { email: userName, video_id: value, type: type })
       .then(response => {
 
           console.log('Response from server:', response.data.video_id);
@@ -62,7 +62,7 @@ const handleRemoveBookmark = (value) => {
   if (!token && !userName) {
       console.log('token is empty...! Please Login First');
   } else {        
-      axios.delete(`http://localhost:3001/bookmark/${value}`)
+      axios.delete(`https://entertainmentbackendott.onrender.com/bookmark/${value}`)
       .then(response => {
           window.location.reload()
           console.log(response);

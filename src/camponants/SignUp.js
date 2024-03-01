@@ -45,7 +45,7 @@ const Share = ({ isvisible, onClose }) => {
                     validationSchema={SignUpSchema}
                     onSubmit={(values) => {
                         try{
-                            axios.post('http://localhost:3001/signUp', values)
+                            axios.post('https://entertainmentbackendott.onrender.com/signUp', values)
                             alert('Your Account created Successful...') 
                             onClose();
                         } 

@@ -1,15 +1,15 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 function Index() {
     const [count, setCount] = useState([]);
-    const [file, setFile] = useState();  
+    // const [file, setFile] = useState();  
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/admin/video`);
+                const response = await axios.get(`https://entertainmentbackendott.onrender.com/admin/video`);
                 setCount(response.data);
             } catch (err) {
                 console.log(err);
@@ -22,7 +22,7 @@ function Index() {
      
     const insertData = async () => {
       try {
-          const response = await axios.post(`http://localhost:3001/videos/insert`);
+          const response = await axios.post(`https://entertainmentbackendott.onrender.com/videos/insert`);
           console.log(response.data);
           // dispatch(getmovie(response.data));
       } catch (err) {
@@ -30,27 +30,27 @@ function Index() {
       }
     };
 
-    const handletrailerUpload = (id) => {
-      const formdata = new FormData();
-      formdata.append('trailer', file);
-      console.log(formdata);
-      axios.post(`http://localhost:3001/admin/trailer/${id}`, formdata)
-          .then(res => {console.log(res) 
-            window.location.reload()
-          })
-          .catch(err => console.log(err));
-    }
+    // const handletrailerUpload = (id) => {
+    //   const formdata = new FormData();
+    //   formdata.append('trailer', file);
+    //   console.log(formdata);
+    //   axios.post(`https://entertainmentbackendott.onrender.com/admin/trailer/${id}`, formdata)
+    //       .then(res => {console.log(res) 
+    //         window.location.reload()
+    //       })
+    //       .catch(err => console.log(err));
+    // }
 
-    const handlevideoUpload = (id) => {
-      const formdata = new FormData();
-      formdata.append('video', file);
-      console.log(formdata);
-      axios.post(`http://localhost:3001/admin/video/${id}`, formdata)
-          .then(res => {console.log(res) 
-            window.location.reload()
-          })
-          .catch(err => console.log(err));
-    }
+    // const handlevideoUpload = (id) => {
+    //   const formdata = new FormData();
+    //   formdata.append('video', file);
+    //   console.log(formdata);
+    //   axios.post(`https://entertainmentbackendott.onrender.com/admin/video/${id}`, formdata)
+    //       .then(res => {console.log(res) 
+    //         window.location.reload()
+    //       })
+    //       .catch(err => console.log(err));
+    // }
   
     return (
       <div className='flex flex-col bg-gray-900'>
@@ -64,7 +64,7 @@ function Index() {
                 {count.map((item, index) => (
                     <div key={index} className='bg-gray-950 h-auto w-[16%] m-1 mb-2 p-2 rounded-md max-sm:w-full'>
                         <div className=' text-white'>
-                          <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} className='w-[90%] ml-[5%] h-52'/>
+                          <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} className='w-[90%] ml-[5%] h-52'alt='prps'/>
                         </div>
                         <div>
                           <div className='text-center text-lg font-mono'>{item.type === 'movie'? item.original_title : item.original_name}</div>

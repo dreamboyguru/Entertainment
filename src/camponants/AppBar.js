@@ -58,9 +58,9 @@ const Navbar = () => {
         <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-md ${activeButton === 'tv' ? 'bg-gray-700' : ''}`}>
             <Link to='/Tv' onClick={() => setActiveButton('tv')} className="text-white text-md max-md:text-sm">Tv Series</Link>
         </div>
-        <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-md ${activeButton === 'web' ? 'bg-gray-700' : ''}`}>
+        {/* <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-md ${activeButton === 'web' ? 'bg-gray-700' : ''}`}>
             <Link to='/Web' onClick={() => setActiveButton('web')} className="text-white text-md max-md:text-sm">Web Series</Link>
-        </div>
+        </div> */}
             {userName ? (
                 <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-md ${activeButton === 'book' ? 'bg-gray-700' : ''}`}>
                     <Link to='/BookMarks' onClick={() => setActiveButton('book')} className="text-white text-md max-md:text-sm">Book Marks</Link>
@@ -109,9 +109,9 @@ const Navbar = () => {
             <Link to='/Tv' className="w-full h-10 justify-center pt-2 pl-10 hover:bg-gray-800" onClick={()=>handleMenu()}>
                 <div className="text-white text-xl max-md:text-sm">Tv Series</div>
             </Link>
-            <Link to='/Web' className="w-full h-10 justify-center pt-2 pl-10 hover:bg-gray-800" onClick={()=>handleMenu()}>
+            {/* <Link to='/Web' className="w-full h-10 justify-center pt-2 pl-10 hover:bg-gray-800" onClick={()=>handleMenu()}>
                 <div className="text-white text-xl max-md:text-sm">Web Series</div>
-            </Link>
+            </Link> */}
             {userName ? (
                 <div className="w-full h-10 justify-center pt-2 pl-10 hover:bg-gray-800">
                     <Link to='/BookMarks' className="text-white text-xl max-md:text-sm" onClick={()=>handleMenu()}>Book Marks</Link>
