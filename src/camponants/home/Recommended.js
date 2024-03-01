@@ -74,7 +74,7 @@ const Recommended = () => {
         <>
             <Login isvisible={showModel} onClose={()=>setshowModel(false)} />
             <PlayPage isVisible={playPageVisible} onClose={()=>setPlayPageVisible(false)} passData={data}/>
-            <div className='bg-gray-900 max-sm:pt-0 max-md:px-1 h-auto min-h-screen'>
+            <div className='bg-gray-900 max-sm:pt-0 max-md:px-1 h-auto'>
                 
                 <div className='flex flex-col'>
                     <div className='flex flex-wrap h-auto'>
