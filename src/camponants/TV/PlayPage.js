@@ -4,11 +4,11 @@ import PlayVideo from './Playvideo';
 import axios from 'axios';
 
 function PlayPage({ isVisible, onClose, passData }) {
-    console.log(passData);
+    // console.log(passData);
     const id = passData === null ? '' : passData.url_tv_id;
     const [videoModel, setVideoModel] = useState(false);
     const [videoKey, setVideoKey] = useState('');
-    const [key, setKey] = useState('')
+    // const [key, setKey] = useState('')
     const [data, setData] = useState('');
 
     useEffect(() => {
@@ -17,10 +17,11 @@ function PlayPage({ isVisible, onClose, passData }) {
                 const response = await axios.get(`https://entertainmentbackendott.onrender.com/api/tv/${id}`);
                 const genre = await axios.get(`https://entertainmentbackendott.onrender.com/api/video/genre/${id}`);
                 setVideoKey(response.data.videoKey);
-                setKey(response.data.videoKey.key)
+                // setKey(response.data.videoKey.key)
                 setData(genre.data.videoKey);
+                console.log(videoKey);
             } catch (err) {
-                console.log(err);
+                console.error(err);
             }
         };
         fetchData();
@@ -34,7 +35,7 @@ function PlayPage({ isVisible, onClose, passData }) {
 
     return (
         <>
-            <PlayVideo isVisiblevideo={videoModel} onClosevideo={() => setVideoModel(false)} videoName={key} />
+            <PlayVideo isVisiblevideo={videoModel} onClosevideo={() => setVideoModel(false)} videoName={videoKey?.key} />
             <div className="fixed inset-0 bg-black text-white bg-opacity-25 backdrop-blur-sm h-full w-full z-30" id="wrapper" onClick={(e) => handleClose(e)}>
                 <div className="flex flex-row max-md:flex-col bg-black mx-48 my-10 rounded-md max-md:mx-2 max-lg:mx-10 max-md:mt-5">
                     <button className="absolute top-10 right-48 text-white text-xl max-md:right-2 max-md:top-5 max-lg:right-10" onClick={onClose}>
@@ -57,7 +58,7 @@ function PlayPage({ isVisible, onClose, passData }) {
                             <div className="flex flex-row p-2 max-md:p-0.5">
                                 <div className="w-full">
                                     <div className="max-md:text-sm font-semibold">Length</div>
-                                    <div className="max-md:text-xs">{videoKey.size === undefined ? '': videoKey.size} m</div>
+                                    <div className="max-md:text-xs">{videoKey?.size} m</div>
                                 </div>
                                 <div className="w-full">
                                     <div className="max-md:text-sm font-semibold">Language</div>
