@@ -8,25 +8,25 @@ import axios from 'axios';
 
 const Navbar = () => {
     // console.log(data);
-    const token = Cookies.get('token');
-    useEffect(() => {
-        const fetchData = async () => {
-        try {
-            const response = await axios.get('https://entertainmentbackendott.onrender.com/check-token-validity', {
-            headers: {
-                'authorization': `Bearer ${token}`
-            }
-            });
-            const temp = (response.data.valid === true && response.status === 200) ? 'Token Valid' : Cookies.remove('token');
-            console.log(temp);
-            // console.log((response.data.valid));
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-        };
+    // const token = Cookies.get('token');
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //     try {
+    //         const response = await axios.get('https://entertainmentbackendott.onrender.com/check-token-validity', {
+    //         headers: {
+    //             'authorization': `Bearer ${token}`
+    //         }
+    //         });
+    //         const temp = (response.data.valid === true && response.status === 200) ? 'Token Valid' : Cookies.remove('token');
+    //         console.log(temp);
+    //         // console.log((response.data.valid));
+    //     } catch (error) {
+    //         console.error('Error fetching data:', error);
+    //     }
+    //     };
 
-        fetchData();
-    }, [token]);
+    //     fetchData();
+    // }, [token]);
     const [activeButton, setActiveButton] = useState('home')
     const [isOpen, setIsOpen] = useState(false);
 
