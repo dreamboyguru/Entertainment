@@ -1,94 +1,174 @@
 import React, { useEffect, useState } from 'react';
-import { RxCross2 } from 'react-icons/rx';
-import PlayVideo from './Playvideo';
+import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import PlayPage from './PlayPage';
+import Login from '../Login'
+import Cookies from 'js-cookie';
+import { gettv } from '../../redux/tv';
 
-function PlayPage({ isVisible, onClose, passData }) {
-    // console.log(passData);
-    const id = passData === null ? '' : passData.url_tv_id;
-    const [videoModel, setVideoModel] = useState(false);
-    const [videoKey, setVideoKey] = useState('');
-    // const [key, setKey] = useState('')
-    const [data, setData] = useState('');
 
+const Tv = ( type ) => {
+    const [showModel, setshowModel] = useState(false);
+    const userName = Cookies.get('userName')
+    const dispatch = useDispatch();
+    const video = useSelector((state) => state.tv.tv);
+
+    const handleAddBookmark = (value) => {
+        const token = Cookies.get('token')
+        const userName = Cookies.get('userName')
+        if (!token && !userName) {
+            // console.log('token is empty...! Please Login First');
+            setshowModel(true)
+        } else {        
+            axios.post('https://entertainmentbackendott.onrender.com/bookmark', { email: userName, video_id: value, type: 'tv' })
+            .then(response => {
+
+                console.log('Response from server:', response.data.video_id);
+                window.location.reload()
+                // Handle the response data as needed
+            })
+            .catch(error => {
+                console.log('Error:', error);
+                // Handle errors
+            });
+        }
+    }
+    
+    const handleRemoveBookmark = (value) => {
+        const token = Cookies.get('token')
+        const userName = Cookies.get('userName')
+        if (!token && !userName) {
+            console.log('token is empty...! Please Login First');
+        } else {        
+            axios.delete(`https://entertainmentbackendott.onrender.com/bookmark/${value}`)
+            .then(response => {
+                window.location.reload()
+                console.log(response);
+                // Handle the response data as needed
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle errors
+            });
+        }
+    }
+    
+    // const insertData = async () => {
+    //     try {
+    //         const response = await axios.post(`http://localhost:3001/videos/insert`);
+    //         console.log(response.data);
+    //         // dispatch(getmovie(response.data));
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // };
+   
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`https://entertainmentbackendott.onrender.com/api/tv/${id}`);
-                const genre = await axios.get(`https://entertainmentbackendott.onrender.com/api/video/genre/${id}`);
-                setVideoKey(response.data.videoKey);
-                // setKey(response.data.videoKey.key)
-                setData(genre.data.videoKey);
-                console.log(videoKey);
+                const response = await axios.get(`https://entertainmentbackendott.onrender.com/tv/${userName}`);
+                // console.log(response.data);
+                dispatch(gettv(response.data));
             } catch (err) {
-                console.error(err);
+                console.log(err);
             }
         };
         fetchData();
-    }, [id]);
+    }, [dispatch, userName]);
+    
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await axios.get(`http://localhost:5000/videos/test`);
+    //             console.log(response.data);
+    //             dispatch(getVideo(response.data));
+    //         } catch (err) {
+    //             console.log(err);
+    //         }
+    //     };
+    //     fetchData();
+    // }, [dispatch, userName]);
 
-    const handleClose = (e) => {
-        if (e.target.id === 'wrapper') return onClose();
-    };
+    const [playPageVisible, setPlayPageVisible] = useState(false);
+    const [data, setData] = useState(null); 
 
-    if (!isVisible) return null;
-
+    
     return (
         <>
-            <PlayVideo isVisiblevideo={videoModel} onClosevideo={() => setVideoModel(false)} videoName={videoKey?.key} />
-            <div className="fixed inset-0 bg-black text-white bg-opacity-25 backdrop-blur-sm h-full w-full z-30" id="wrapper" onClick={(e) => handleClose(e)}>
-                <div className="flex flex-row max-md:flex-col bg-black mx-48 my-10 rounded-md max-md:mx-2 max-lg:mx-10 max-md:mt-5">
-                    <button className="absolute top-10 right-48 text-white text-xl max-md:right-2 max-md:top-5 max-lg:right-10" onClick={onClose}>
-                        <RxCross2 className="font-bold size-6 hover:text-red-600 hover:size-8 hover:font-extrabold hover:-mt-1 hover:-mr-1" />
-                    </button>
-                    <div className="w-[50%] p-10 max-md:p-2 max-md:w-[80%] max-md:ml-[10%]">
-                        <div className="border-2 w-full overflow-hidden max-md:h-60">
-                            <img src={`https://image.tmdb.org/t/p/w500/${passData.poster_path}`} alt="img" className="w-96 h-80" />
-                        </div>
-                        <div>
-                            <button className="mt-5 w-full p-2 text-black rounded-md bg-white hover:bg-gray-400 max-md:p-0.5 max-md:text-md max-md:mt-1" onClick={() => setVideoModel(true)}>Watch</button>
-                        </div>
-                    </div>
-                    <div className="w-full p-10 max-md:px-2 max-md:-mt-10">
-                        <div className="w-full">
-                            <div>
-                                <h1 className="text-4xl max-md:text-lg max-md:font-semibold mb-1">{passData.original_name}</h1>
-                                <h1 className="text-2xl max-md:text-lg">3.9 *****</h1>
-                            </div>
-                            <div className="flex flex-row p-2 max-md:p-0.5">
-                                <div className="w-full">
-                                    <div className="max-md:text-sm font-semibold">Length</div>
-                                    <div className="max-md:text-xs">{videoKey?.size} m</div>
-                                </div>
-                                <div className="w-full">
-                                    <div className="max-md:text-sm font-semibold">Language</div>
-                                    <div className="max-md:text-xs">{passData.original_language === 'en' ? 'English' : passData.original_language}</div>
-                                </div>
-                                <div className="w-full">
-                                    <div className="max-md:text-sm font-semibold">Year</div>
-                                    <div className="max-md:text-xs">{passData.first_air_date.split('-')[0]}</div>
-                                </div>
-                                <div className="w-full">
-                                    <div className="max-md:text-sm font-semibold">Status</div>
-                                    <div className="max-md:text-xs">{passData.adult === 'false' ? 'U/A' : 'U'}</div>
-                                </div>
-                            </div>
-                            <div className="text-md font-semibold mb-2 max-md:mb-0.5 max-md:text-sm">Genre</div>
-                            <div className="flex flex-wrap">
-                                {data && data.map((item, index) => (
-                                    <div className="bg-white rounded-md text-black px-2 py-1 max-md:px-1 max-md:py-0.5 text-xs mx-2 font-medium" key={index}>{item.name}</div>
-                                ))}
-                            </div>
-                            <div className="mt-4 max-md:mt-1">
-                                <div className="text-md font-semibold mb-2 max-md:mb-0 max-md:text-sm">Synopsis</div>
-                                <div className="text-sm text-justify max-md:text-xs">{passData.overview}</div>
-                            </div>
-                        </div>
+            <Login isvisible={showModel} onClose={()=>setshowModel(false)} />
+            <PlayPage isVisible={playPageVisible} onClose={()=>setPlayPageVisible(false)} passData={data}/>
+            <div className='bg-gray-900 pl-16 pr-10 pt-24 max-sm:pt-14 max-md:px-1 min-h-screen'>
+                <div>
+                    <h1 className='text-xl p-3'>{(type.type === 'movie') ? 'Tv' : (type.type === 'tv') ? 'Tv Series' : 'Web Series'}</h1>
+                </div>
+                <div className='flex flex-col'>
+                    <div className='flex flex-wrap h-auto'>
+                        {/* <button onClick={()=>insertData()} className='bg-gray-800 p-2 px-4'>dsg</button> */}
+                        {video.map((item, index) => {
+                            if (item.type === type.type) {
+                                return(
+                                    <div className=' bg-gray-800 m-2 p-1 rounded-lg w-[13%] max-lg:w-[20%] max-xl:w-[15%] max-md:w-[95%] mb-5 h-suto shadow-md hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105' key={index}>
+                                        <img
+                                            src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+                                            alt='prop'
+                                            className='w-full h-52 object-cover rounded-lg shadow-lg cursor-pointer'
+                                            onClick={() => {
+                                            setPlayPageVisible(true)
+                                            setData(item)
+                                            }}
+                                        />
+                                        {
+                                            // console.log(item.joinedData)
+                                        (item.joinedData[0] === undefined) ? (
+                                            
+                                            <div>
+                                                <button className='bg-gray-700 text-white hover:text-gray-950 absolute top-2 right-2 rounded-3xl w-7 h-7' 
+                                                    onClick={() => {
+                                                        handleAddBookmark(item.id)
+                                                    }}
+                                                >
+                                                    <FaRegBookmark className='ml-1.5' />
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <button className='bg-gray-700 absolute top-2 right-2 rounded-3xl w-7 h-7'
+                                                onClick={() => {
+                                                    handleRemoveBookmark(item.id)
+                                                }}
+                                            >
+                                                <FaBookmark className='ml-1.5' />
+                                            </button>
+                                        )}
+                                        
+                                        {/* <button className='bg-gray-700 text-white hover:text-gray-950 absolute top-2 right-2 rounded-3xl w-7 h-7'
+                                            onClick={()=> handleAddBookmark(item.id)}
+                                        >
+                                            <FaRegBookmark className='ml-1.5' />
+                                        </button> */}
+                                        <div className='flex justify-between items-center p-1'>
+                                            <div className='flex-col'>
+                                            <div className='flex flex-row text-xs'>
+                                                <div className='flex-grow'>{item.first_air_date.split('-')[0]}</div>
+                                                {/* <div className='px-5'>{item.type}</div> */}
+                                                <div className='mr-2'>{item.adult === 'false' ? 'U/A' : 'U'}</div>
+                                            </div>
+                                            <h3 className='w-36 h-7 text-md font-semibold overflow-x-auto whitespace-nowrap' style={{scrollbarWidth: 'none'}}>{item.original_name}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                )
+                            }}
+                        
+                        )}
+                         
+                        
                     </div>
                 </div>
             </div>
         </>
     );
-}
+};
 
-export default PlayPage;
+export default Tv;
