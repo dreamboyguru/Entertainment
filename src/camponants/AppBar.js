@@ -1,27 +1,48 @@
 import { IoMdSearch } from "react-icons/io";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdMenuOpen } from "react-icons/md";
 import Login from "./Login";
 import Cookies from "js-cookie";
+import axios from 'axios';
 
 const Navbar = () => {
+    // console.log(data);
+    const token = Cookies.get('token');
+    useEffect(() => {
+        const fetchData = async () => {
+        try {
+            const response = await axios.get('https://entertainmentbackendott.onrender.com/check-token-validity', {
+            headers: {
+                'authorization': `Bearer ${token}`
+            }
+            });
+            const temp = (response.data.valid === true && response.status === 200) ? 'Token Valid' : Cookies.remove('token');
+            console.log(temp);
+            // console.log((response.data.valid));
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+        };
+
+        fetchData();
+    }, [token]);
     const [activeButton, setActiveButton] = useState('home')
-  const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
-  const [showModel, setshowModel] = useState(false);
+    const [showModel, setshowModel] = useState(false);
 
-  const userName = Cookies.get('userName') ? Cookies.get('userName'): null;
+    const userName = Cookies.get('userName') ? Cookies.get('userName'): null;
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-//   const toggleNavbar = () => {
-//     setIsOpen(!isOpen);
-//   };
+    //   const toggleNavbar = () => {
+    //     setIsOpen(!isOpen);
+    //   };
 
-  const handleMenu = () => {
-    setIsOpen(!isOpen);
-  }
+    const handleMenu = () => {
+        setIsOpen(!isOpen);
+    }
   
   return (
     <nav className=''>
