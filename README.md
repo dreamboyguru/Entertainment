@@ -1,4 +1,4 @@
-# Entertainment Web Application
+# Entertainment Frontend Web Application
 
 Welcome to the Entertainment Web Application repository! This application provides a user-friendly platform for accessing a variety of entertainment content, including movies, TV shows, and more.
 
@@ -64,7 +64,7 @@ Before you begin, make sure you have the following tools installed:
    npm install
    ```
 
-4. **Launch the Application**
+3. **Launch the Application**
 
    Run the following command to start the application in development mode:
 
