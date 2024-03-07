@@ -21,7 +21,7 @@ const Recommended = () => {
             // console.log('token is empty...! Please Login First');
             setshowModel(true)
         } else {        
-            axios.post('https://entertainmentbackendott.onrender.com/bookmark', { email: userName, video_id: value, type: type })
+            axios.post(`${process.env.REACT_APP_INVOKE}/bookmark`, { email: userName, video_id: value, type: type })
             .then(response => {
 
                 console.log('Response from server:', response.data.video_id);
@@ -41,7 +41,7 @@ const Recommended = () => {
         if (!token && !userName) {
             console.log('token is empty...! Please Login First');
         } else {        
-            axios.delete(`https://entertainmentbackendott.onrender.com/bookmark/${value}`)
+            axios.delete(`${process.env.REACT_APP_INVOKE}/bookmark/${value}`)
             .then(response => {
                 window.location.reload()
                 console.log(response);
@@ -56,7 +56,7 @@ const Recommended = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`https://entertainmentbackendott.onrender.com/recommend/${userName}`);
+                const response = await axios.get(`${process.env.REACT_APP_INVOKE}/recommend/${userName}`);
                 // console.log(response.data);
                 dispatch(getRecommend(response.data));
             } catch (err) {
