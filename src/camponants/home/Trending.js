@@ -24,7 +24,7 @@ const Trending = () => {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await axios.get(`https://entertainmentbackendott.onrender.com/trending/${userName}`);
+            const response = await axios.get(`${process.env.REACT_APP_INVOKE}/trending/${userName}`);
             // console.log(response.data);
             dispatch(getTrending(response.data));
         } catch (err) {
