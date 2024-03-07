@@ -42,7 +42,7 @@ const handleAddBookmark = (value, type) => {
       // console.log('token is empty...! Please Login First');
       setshowModel(true)
   } else {        
-      axios.post('https://entertainmentbackendott.onrender.com/bookmark', { email: userName, video_id: value, type: type })
+      axios.post(`${process.env.REACT_APP_INVOKE}/bookmark`, { email: userName, video_id: value, type: type })
       .then(response => {
 
           console.log('Response from server:', response.data.video_id);
@@ -62,7 +62,7 @@ const handleRemoveBookmark = (value) => {
   if (!token && !userName) {
       console.log('token is empty...! Please Login First');
   } else {        
-      axios.delete(`https://entertainmentbackendott.onrender.com/bookmark/${value}`)
+      axios.delete(`${process.env.REACT_APP_INVOKE}/bookmark/${value}`)
       .then(response => {
           window.location.reload()
           console.log(response);
