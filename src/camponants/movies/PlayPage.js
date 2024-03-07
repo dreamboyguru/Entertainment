@@ -4,7 +4,7 @@ import PlayVideo from './PlayVideo';
 import axios from 'axios';
 
 function PlayPage({ isVisible, onClose, passData }) {
-    console.log(passData)
+    // console.log(passData)
     const id = (passData === null) ? '' : passData.url_video_id ;
     const [videoModel, setvideoModel] = useState(false);
     const [videoKey, setVideoKey] = useState('');
@@ -15,9 +15,9 @@ function PlayPage({ isVisible, onClose, passData }) {
             try {
                 let response = '';
                 passData.type === 'movie' ?  
-                    response = await axios.get(`https://entertainmentbackendott.onrender.com/api/videos/${id}`) : 
-                    response = await axios.get(`https://entertainmentbackendott.onrender.com/api/tv/${id}`) ;
-                const genre = await axios.get(`https://entertainmentbackendott.onrender.com/api/video/genre/${id}`);
+                    response = await axios.get(`${process.env.REACT_APP_INVOKE}/api/videos/${id}`) : 
+                    response = await axios.get(`${process.env.REACT_APP_INVOKE}/api/tv/${id}`) ;
+                const genre = await axios.get(`${process.env.REACT_APP_INVOKE}/api/video/genre/${id}`);
                 setVideoKey(response.data.videoKey);
                 setData(genre.data.videoKey);
                 // console.log(genre.data.videoKey);
