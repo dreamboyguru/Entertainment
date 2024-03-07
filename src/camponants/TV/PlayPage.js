@@ -14,12 +14,12 @@ function PlayPage({ isVisible, onClose, passData }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`https://entertainmentbackendott.onrender.com/api/tv/${id}`);
-                const genre = await axios.get(`https://entertainmentbackendott.onrender.com/api/video/genre/${id}`);
+                const response = await axios.get(`${process.env.REACT_APP_INVOKE}/api/tv/${id}`);
+                const genre = await axios.get(`${process.env.REACT_APP_INVOKE}/api/video/genre/${id}`);
                 setVideoKey(response.data.videoKey);
                 // setKey(response.data.videoKey.key)
                 setData(genre.data.videoKey);
-                console.log(videoKey);
+                // console.log(videoKey);
             } catch (err) {
                 console.error(err);
             }
