@@ -9,7 +9,7 @@ function Index() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`https://entertainmentbackendott.onrender.com/admin/video`);
+                const response = await axios.get(`${process.env.REACT_APP_INVOKE}/admin/video`);
                 setCount(response.data);
             } catch (err) {
                 console.log(err);
@@ -22,8 +22,10 @@ function Index() {
      
     const insertData = async () => {
       try {
-          const response = await axios.post(`https://entertainmentbackendott.onrender.com/videos/insert`);
+          const response = await axios.post(`${process.env.REACT_APP_INVOKE}/videos/insert`);
           console.log(response.data);
+          window.location.reload();
+          console.log('Movies and Tv Shows added successfully');
           // dispatch(getmovie(response.data));
       } catch (err) {
           console.log(err);
@@ -34,7 +36,7 @@ function Index() {
     //   const formdata = new FormData();
     //   formdata.append('trailer', file);
     //   console.log(formdata);
-    //   axios.post(`https://entertainmentbackendott.onrender.com/admin/trailer/${id}`, formdata)
+    //   axios.post(`${process.env.REACT_APP_INVOKE}/admin/trailer/${id}`, formdata)
     //       .then(res => {console.log(res) 
     //         window.location.reload()
     //       })
@@ -45,7 +47,7 @@ function Index() {
     //   const formdata = new FormData();
     //   formdata.append('video', file);
     //   console.log(formdata);
-    //   axios.post(`https://entertainmentbackendott.onrender.com/admin/video/${id}`, formdata)
+    //   axios.post(`${process.env.REACT_APP_INVOKE}/admin/video/${id}`, formdata)
     //       .then(res => {console.log(res) 
     //         window.location.reload()
     //       })
