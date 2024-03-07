@@ -27,7 +27,7 @@ const BookMarks = () => {
 
     const fetchData = async () => {
       try {
-          const response = await axios.get(`https://entertainmentbackendott.onrender.com/bookmark/${userName}`);
+          const response = await axios.get(`${process.env.REACT_APP_INVOKE}/bookmark/${userName}`);
           // console.log(response.data);
           dispatch(getbookmarks(response.data));
       } catch (err) {
@@ -44,7 +44,7 @@ const BookMarks = () => {
     if (!token && !userName) {
         console.log('token is empty...! Please Login First');
     } else {        
-        axios.delete(`https://entertainmentbackendott.onrender.com/bookmark/${value}`)
+        axios.delete(`${process.env.REACT_APP_INVOKE}/bookmark/${value}`)
         .then(response => {
             window.location.reload()
             console.log(response);
