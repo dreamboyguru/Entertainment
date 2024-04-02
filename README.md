@@ -1,6 +1,6 @@
 # Entertainment Frontend Web Application
 
-Welcome to the Entertainment Web Application repository! This application provides a user-friendly platform for accessing a variety of entertainment content, including movies, TV shows, and more.
+Welcome to the Entertainment Web Application repository! This application provides a user-friendly platform for accessing a variety of entertainment content, including movies, TV shows and more.
 
 ## Tech Stack Used:
 
