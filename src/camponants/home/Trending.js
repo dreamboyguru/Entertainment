@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Login from '../Login'
 import PlayPage from '../movies/PlayPage';
 import Cookies from 'js-cookie';
+import load from '../images/load1.gif'
 
 const Trending = () => {
 
@@ -18,7 +19,9 @@ const Trending = () => {
   const [showModel, setshowModel] = useState(false);
 
   const dispatch = useDispatch();
-  const TrendingVideo = useSelector((state)=> state.trending.trending)
+  const TrendingVideo = useSelector((state)=> state.trending.trending);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   
   
   useEffect(() => {
@@ -27,59 +30,65 @@ const Trending = () => {
             const response = await axios.get(`${process.env.REACT_APP_INVOKE}/trending/${userName}`);
             // console.log(response.data);
             dispatch(getTrending(response.data));
+            setLoading(false)
         } catch (err) {
             console.log(err);
+            setLoading(false);
         }
     };
     fetchData();
-}, [dispatch, userName])
+  }, [dispatch, userName])
 
 
-const handleAddBookmark = (value, type) => {
-  const token = Cookies.get('token')
-  const userName = Cookies.get('userName')
-  if (!token && !userName) {
-      // console.log('token is empty...! Please Login First');
-      setshowModel(true)
-  } else {        
-      axios.post(`${process.env.REACT_APP_INVOKE}/bookmark`, { email: userName, video_id: value, type: type })
-      .then(response => {
+  const handleAddBookmark = (value, type) => {
+    const token = Cookies.get('token')
+    const userName = Cookies.get('userName')
+    if (!token && !userName) {
+        // console.log('token is empty...! Please Login First');
+        setshowModel(true)
+    } else {        
+        axios.post(`${process.env.REACT_APP_INVOKE}/bookmark`, { email: userName, video_id: value, type: type })
+        .then(response => {
 
-          console.log('Response from server:', response.data.video_id);
-          window.location.reload()
-          // Handle the response data as needed
-      })
-      .catch(error => {
-          console.error('Error:', error);
-          // Handle errors
-      });
+            console.log('Response from server:', response.data.video_id);
+            window.location.reload()
+            // Handle the response data as needed
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle errors
+        });
+    }
   }
-}
 
-const handleRemoveBookmark = (value) => {
-  const token = Cookies.get('token')
-  const userName = Cookies.get('userName')
-  if (!token && !userName) {
-      console.log('token is empty...! Please Login First');
-  } else {        
-      axios.delete(`${process.env.REACT_APP_INVOKE}/bookmark/${value}`)
-      .then(response => {
-          window.location.reload()
-          console.log(response);
-          // Handle the response data as needed
-      })
-      .catch(error => {
-          console.error('Error:', error);
-          // Handle errors
-      });
+  const handleRemoveBookmark = (value) => {
+    const token = Cookies.get('token')
+    const userName = Cookies.get('userName')
+    if (!token && !userName) {
+        console.log('token is empty...! Please Login First');
+    } else {        
+        axios.delete(`${process.env.REACT_APP_INVOKE}/bookmark/${value}`)
+        .then(response => {
+            window.location.reload()
+            console.log(response);
+            // Handle the response data as needed
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle errors
+        });
+    }
   }
-}
+
+  if (loading) return <img src={load} alt='Loading...' className='w-[97%] h-56' />;
+
   return (
     <div className='flex flex-col'>
       <Login isvisible={showModel} onClose={()=>setshowModel(false)} />
       <PlayPage isVisible={playPageVisible} onClose={()=>setPlayPageVisible(false)} passData={data}/>
       <div className='flex flex-row h-auto overflow-hidden overflow-x-scroll  sm:scrollbar-hidden max-md:h-auto'>
-        { TrendingVideo.map((item, index) => (
+        {(loading) ? (<img src={load} alt='Loading...' className='w-[97%] h-96' />) : 
+          TrendingVideo.map((item, index) => (
           <div className='relative bg-gray-800 m-2 p-1 rounded-lg min-w-[20%] max-w[15%] h-auto max-md:min-w-[75%] max-md:max-w[75%]  max-md:mb-7 transition duration-300 ease-in-out transform hover:scale-105' key={index}>
             <img 
                 src={`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`}
