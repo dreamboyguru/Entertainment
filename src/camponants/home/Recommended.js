@@ -6,6 +6,7 @@ import { getRecommend } from '../../redux/RecommendSlice';
 import PlayPage from '../movies/PlayPage';
 import Login from '../Login'
 import Cookies from 'js-cookie';
+import load from '../images/load1.gif'
 
 const Recommended = () => {
     const [showModel, setshowModel] = useState(false);
@@ -13,6 +14,7 @@ const Recommended = () => {
     const userName = Cookies.get('userName')
     const dispatch = useDispatch();
     const RecommendVideo = useSelector((state) => state.recommend.recommend);
+    const [loading, setLoading] = useState(true);
 
     const handleAddBookmark = (value, type) => {
         const token = Cookies.get('token')
@@ -59,8 +61,10 @@ const Recommended = () => {
                 const response = await axios.get(`${process.env.REACT_APP_INVOKE}/recommend/${userName}`);
                 // console.log(response.data);
                 dispatch(getRecommend(response.data));
+                setLoading(false);
             } catch (err) {
                 console.log(err);
+                setLoading(false);
             }
         };
         fetchData();
@@ -78,7 +82,8 @@ const Recommended = () => {
                 
                 <div className='flex flex-col'>
                     <div className='flex flex-wrap h-auto'>
-                        {RecommendVideo.map((item, index) => {
+                        {(loading) ? <img src={load} className='w-[97%] h-96' /> : 
+                            RecommendVideo.map((item, index) => {
                             return(
                                 <div className='bg-gray-800 m-2 p-1 rounded-lg w-[13%] max-lg:w-[20%] max-xl:w-[15%] max-md:w-[95%] mb-5 h-suto shadow-md hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105' key={index}>
                                     <img
