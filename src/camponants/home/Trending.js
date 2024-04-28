@@ -30,7 +30,7 @@ const Trending = () => {
             const response = await axios.get(`${process.env.REACT_APP_INVOKE}/trending/${userName}`);
             // console.log(response.data);
             dispatch(getTrending(response.data));
-            // setLoading(false)
+            setLoading(false)
         } catch (err) {
             console.log(err);
             setLoading(false);
