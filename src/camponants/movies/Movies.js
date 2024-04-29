@@ -6,6 +6,7 @@ import { getVideo } from '../../redux/VideoSlice';
 import PlayPage from './PlayPage';
 import Login from '../Login'
 import Cookies from 'js-cookie';
+import load from '../images/load1.gif';
 
 
 const Movies = ( type ) => {
@@ -13,6 +14,7 @@ const Movies = ( type ) => {
     const userName = Cookies.get('userName')
     const dispatch = useDispatch();
     const video = useSelector((state) => state.video.video);
+    const [loading, setLoading] = useState(true);
 
     const handleAddBookmark = (value) => {
         const token = Cookies.get('token')
@@ -61,8 +63,10 @@ const Movies = ( type ) => {
                 const response = await axios.get(`${process.env.REACT_APP_INVOKE}/videos/${userName}`);
                 // console.log(response.data);
                 dispatch(getVideo(response.data));
+                setLoading(false);
             } catch (err) {
                 console.log(err);
+                setLoading(false);
             }
         };
         fetchData();
@@ -96,7 +100,8 @@ const Movies = ( type ) => {
                 <div className='flex flex-col'>
                     <div className='flex flex-wrap h-auto'>
                         {/* <button onClick={()=>insertData()} className='bg-gray-800 p-2 px-4'>dsg</button> */}
-                        {video.map((item, index) => {
+                        {(loading) ? <img src={load} alt='Loading...' className='w-[97%]'/> :
+                            video.map((item, index) => {
                             if (item.type === type.type) {
                                 return(
                                     <div className='bg-gray-800 m-2 p-1 rounded-lg w-[13%] max-lg:w-[20%] max-xl:w-[15%] max-md:w-[95%] mb-5 h-suto shadow-md hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105' key={index}>
