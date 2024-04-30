@@ -12,6 +12,8 @@ import Cookies from 'js-cookie';
 const Share = ({ isvisible, onClose }) => {
     const navigate = useNavigate();
     const [SignUpModel, setSignUpModel] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('')
     // Function to close the Share modal
     const handleClose = (e) => {
         if(e.target.id === 'wrapper') return onClose();
@@ -47,6 +49,7 @@ const Share = ({ isvisible, onClose }) => {
                     }}
                     validationSchema=''
                     onSubmit = {(values) => {
+                        setIsLoading(true);
                         try {
                             axios.post(`${process.env.REACT_APP_INVOKE}/login`, values)
                             .then(response => {
@@ -56,18 +59,24 @@ const Share = ({ isvisible, onClose }) => {
                                 // Further actions with the token can be performed here
                                 // localStorage.getItem('userName', response.data.useName)
                                 onClose();
-                                navigate('/')
+                                navigate('/');
+                                setError('');
                               })
                               .catch(error => {
                                 console.error('Error during login:', error);
+                                setError('Incorrect Credentials')
                               });
-
+                            setIsLoading(false);
                         } catch (err) {
                             console.log(err);
+                            setIsLoading(false);
+                            setError('Server Error... Please Try again SomeTimes')
                         }
                     }}
                 >
+                    
                     <Form>
+                    {error ? <div className='text-red-600 bg-white text-center'>{error}</div> : null}
                         <div className='bg-white'>
                             <div className='flex flex-col mx-10 p-2 max-sm:mx-2'>
                                 <label 
@@ -94,7 +103,11 @@ const Share = ({ isvisible, onClose }) => {
                                 />
                             </div>
                             <div className='flex flex-col mx-10 p-2 max-sm:mx-2'>
-                                <button type='submit' className=' h-10 bg-gray-600 hover:bg-gray-700 rounded-md text-white'>submit </button>
+                                <button 
+                                    type='submit' 
+                                    className=' h-10 bg-gray-600 hover:bg-gray-700 rounded-md text-white'
+                                    disabled = {isLoading}
+                                >{(isLoading) ? 'Signing In...' : 'Sign In'}</button>
                             </div>
                             <div className='flex flex-col mx-10 p-2 max-sm:mx-2'>
                                 <p onClick={()=>{
