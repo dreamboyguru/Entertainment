@@ -1,5 +1,5 @@
 // Import necessary React components and hooks
-import React from 'react'
+import React, { useState } from 'react'
 import { ErrorMessage, Form, Field, Formik } from 'formik'
 import { RxCross2 } from "react-icons/rx";
 import { SignUpSchema } from './schema';
@@ -9,6 +9,7 @@ import axios from 'axios';
 // Share component for displaying sharing options
 const Share = ({ isvisible, onClose }) => {
     // Function to close the Share modal
+    const [isLoading, setIsLoading] = useState(false);
     const handleClose = (e) => {
         if(e.target.id === 'wrapper') return onClose();
     }
@@ -44,13 +45,16 @@ const Share = ({ isvisible, onClose }) => {
                     }}
                     validationSchema={SignUpSchema}
                     onSubmit={(values) => {
+                        setIsLoading(true);
                         try{
                             axios.post(`${process.env.REACT_APP_INVOKE}/signUp`, values)
                             alert('Your Account created Successful...') 
+                            setIsLoading(false);
                             onClose();
                         } 
                         catch(error){
                             console.log(error)
+                            setIsLoading(false);
                         }
                         // console.log(values) 
                     }}
@@ -118,8 +122,9 @@ const Share = ({ isvisible, onClose }) => {
                         <div className='flex flex-col mx-10 p-2 max-sm:mx-2'>
                             <button 
                                 type='submit'
-                                className=' h-10 bg-gray-600 hover:bg-gray-700 rounded-md text-white'>
-                            submit </button>
+                                className=' h-10 bg-gray-600 hover:bg-gray-700 rounded-md text-white'
+                                disabled = {isLoading}
+                            >{(isLoading) ? 'Submitting...' : 'Submit'}</button>
                         </div>
                         <div className='flex flex-col mx-10 p-2 max-sm:mx-2'>
                             <p onClick={()=> onClose()}> Do You have account  
