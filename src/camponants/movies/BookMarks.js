@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getbookmarks } from '../../redux/Bookmark';
 import PlayPage from './PlayPage';
 import { FaBookmark } from 'react-icons/fa';
+import load from '../images/load1.gif';
 
 const BookMarks = () => {
   const [playPageVisible, setPlayPageVisible] = useState(false);
@@ -13,6 +14,8 @@ const BookMarks = () => {
   const userName = Cookies.get('userName');
   const dispatch = useDispatch();
   const bookmarkVideo = useSelector((state) => state.bookmarks.bookmarks);
+  const [loading, setLoading] = useState(true);
+  const [noData, setNoData] = useState(true)
     
   useEffect(() => {
     const token = Cookies.get('token');
@@ -30,8 +33,10 @@ const BookMarks = () => {
           const response = await axios.get(`${process.env.REACT_APP_INVOKE}/bookmark/${userName}`);
           // console.log(response.data);
           dispatch(getbookmarks(response.data));
+          setLoading(false);
       } catch (err) {
           console.log(err);
+          setLoading(false);
       }
     };
     fetchData();
@@ -66,9 +71,10 @@ const BookMarks = () => {
                 </div>
                 <div className='flex flex-col'>
                     <div className='flex flex-wrap h-auto'>
-                        {bookmarkVideo.map((item, index) => {
+                        {loading ? <img src={load} alt='Loading...' className='w-97%' />  :
+                        bookmarkVideo.map((item, index) => {
                             if(item.joinedData[0] !== undefined && item.joinedData[0].email === userName) {
-                              
+                                setNoData(false);                              
                                 return(
                                     <div className='bg-gray-800 m-2 p-1 rounded-lg w-[13%] max-lg:w-[20%] max-xl:w-[15%] max-md:w-[95%] mb-5 h-suto shadow-md hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105' key={index}>
                                         <img
@@ -116,7 +122,7 @@ const BookMarks = () => {
 
                         )}
                             
-                            
+                    {noData ? <div className='text-white text-4xl text-center w-full h-52 pt-10' >No Bookmarked  Videos Found...</div> : ''}
                         
                     </div>
                 </div>
