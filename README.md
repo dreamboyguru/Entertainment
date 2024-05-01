@@ -83,4 +83,4 @@ Explore the application to discover the latest trends in movies and TV shows, an
 
 - **Gurusidda Hanamannavar** - [guruhanamannavar676@gmail.com](mailto:guruhanamannavar676@gmail.com)
 
-Feel free to reach out if you have any questions or suggestions!
+Feel free to reach out if you have any questions or suggestions...!
