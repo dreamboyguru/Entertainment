@@ -67,9 +67,9 @@ const Share = ({ isvisible, onClose }) => {
                               })
                               .catch(error => {
                                 console.error('Error during login:', error);
-                                setError('Incorrect Credentials')
+                                setError('Incorrect Credentials');
+                                setIsLoading(false);
                               });
-                            setIsLoading(false);
                         } catch (err) {
                             console.log(err);
                             setIsLoading(false);
