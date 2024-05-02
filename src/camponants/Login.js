@@ -58,9 +58,12 @@ const Share = ({ isvisible, onClose }) => {
                                 // console.log(response); // Log the token key to the console
                                 // Further actions with the token can be performed here
                                 // localStorage.getItem('userName', response.data.useName)
-                                onClose();
-                                navigate('/');
-                                setError('');
+                                setTimeout(() => {
+                                    onClose();
+                                    navigate('/');
+                                    setError('');
+                                    setIsLoading(false);
+                                }, 1000)
                               })
                               .catch(error => {
                                 console.error('Error during login:', error);
