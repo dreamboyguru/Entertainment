@@ -48,9 +48,11 @@ const Share = ({ isvisible, onClose }) => {
                         setIsLoading(true);
                         try{
                             axios.post(`${process.env.REACT_APP_INVOKE}/signUp`, values)
-                            alert('Your Account created Successful...') 
-                            setIsLoading(false);
-                            onClose();
+                            setTimeout(() => {
+                                alert('Your Account created Successful...') 
+                                setIsLoading(false);
+                                onClose();
+                            }, 1000)
                         } 
                         catch(error){
                             console.log(error)
