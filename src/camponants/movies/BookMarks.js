@@ -73,8 +73,11 @@ const BookMarks = () => {
                     <div className='flex flex-wrap h-auto'>
                         {loading ? <img src={load} alt='Loading...' className='w-97%' />  :
                         bookmarkVideo.map((item, index) => {
-                            if(item.joinedData[0] !== undefined && item.joinedData[0].email === userName) {
-                                setNoData(false);                              
+                            if(item.joinedData[0] !== undefined && item.joinedData[0].email === userName) {    
+                                {if(noData === true){
+                                        setNoData(false)
+                                    }
+                                }                      
                                 return(
                                     <div className='bg-gray-800 m-2 p-1 rounded-lg w-[13%] max-lg:w-[20%] max-xl:w-[15%] max-md:w-[95%] mb-5 h-suto shadow-md hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105' key={index}>
                                         <img
