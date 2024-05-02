@@ -63,7 +63,7 @@ const Share = ({ isvisible, onClose }) => {
                                     navigate('/');
                                     setError('');
                                     setIsLoading(false);
-                                }, 1000)
+                                }, 2000)
                               })
                               .catch(error => {
                                 console.error('Error during login:', error);
