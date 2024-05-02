@@ -52,7 +52,7 @@ const Share = ({ isvisible, onClose }) => {
                                 alert('Your Account created Successful...') 
                                 setIsLoading(false);
                                 onClose();
-                            }, 1000)
+                            }, 2000)
                         } 
                         catch(error){
                             console.log(error)
