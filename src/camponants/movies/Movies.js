@@ -26,7 +26,7 @@ const Movies = ( type ) => {
             axios.post(`${process.env.REACT_APP_INVOKE}/bookmark`, { email: userName, video_id: value, type: 'movie' })
             .then(response => {
 
-                console.log('Response from server:', response.data);
+                // console.log('Response from server:', response.data);
                 dispatch(AddBookmark(response.data));
                 // window.location.reload()
                 // Handle the response data as needed
