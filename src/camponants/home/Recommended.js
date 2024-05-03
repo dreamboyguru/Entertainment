@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { getRecommend } from '../../redux/RecommendSlice';
+import { AddBookmarkRecommend, RemoveBookmarkedRecommend, getRecommend } from '../../redux/RecommendSlice';
 import PlayPage from '../movies/PlayPage';
 import Login from '../Login'
 import Cookies from 'js-cookie';
@@ -25,14 +25,11 @@ const Recommended = () => {
         } else {        
             axios.post(`${process.env.REACT_APP_INVOKE}/bookmark`, { email: userName, video_id: value, type: type })
             .then(response => {
-
-                console.log('Response from server:', response.data.video_id);
-                window.location.reload()
-                // Handle the response data as needed
+                // window.location.reload()
+                dispatch(AddBookmarkRecommend(response.data));
             })
             .catch(error => {
                 console.error('Error:', error);
-                // Handle errors
             });
         }
     }
@@ -45,13 +42,11 @@ const Recommended = () => {
         } else {        
             axios.delete(`${process.env.REACT_APP_INVOKE}/bookmark/${value}`)
             .then(response => {
-                window.location.reload()
-                console.log(response);
-                // Handle the response data as needed
+                // window.location.reload();
+                dispatch(RemoveBookmarkedRecommend(response.data.video_id));
             })
             .catch(error => {
                 console.error('Error:', error);
-                // Handle errors
             });
         }
     }
