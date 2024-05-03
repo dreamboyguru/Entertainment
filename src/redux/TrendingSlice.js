@@ -26,9 +26,27 @@ const TrendingSlice = createSlice({
                     joinedData: video.joinedData
                 }
             })
+        },
+        AddBookmarkTrend (state, action) {
+            const {_id, email, video_id, type} = action.payload;
+            state.trending = state.trending.map(video => {
+                if (video.id === video_id) {
+                    video.joinedData.push({'_id' : _id, 'email': email, 'video_id' : video_id, 'type' : type})
+                }
+                return video;
+            })
+        },
+        RemoveBookmarkedTrend (state, action) {
+            const video_id = action.payload;
+            state.trending = state.trending.map(video => {
+                if (video.id === video_id) {
+                    video.joinedData = [];
+                }
+                return video;
+            })
         }
     }
 })
 
-export const {getTrending} = TrendingSlice.actions;
+export const {getTrending, AddBookmarkTrend, RemoveBookmarkedTrend} = TrendingSlice.actions;
 export default TrendingSlice.reducer;
