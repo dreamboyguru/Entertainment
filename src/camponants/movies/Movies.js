@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { getVideo } from '../../redux/VideoSlice';
+import { AddBookmark, getVideo } from '../../redux/VideoSlice';
 import PlayPage from './PlayPage';
 import Login from '../Login'
 import Cookies from 'js-cookie';
@@ -26,8 +26,9 @@ const Movies = ( type ) => {
             axios.post(`${process.env.REACT_APP_INVOKE}/bookmark`, { email: userName, video_id: value, type: 'movie' })
             .then(response => {
 
-                console.log('Response from server:', response.data.video_id);
-                window.location.reload()
+                console.log('Response from server:', response.data);
+                dispatch(AddBookmark(response.data));
+                // window.location.reload()
                 // Handle the response data as needed
             })
             .catch(error => {
