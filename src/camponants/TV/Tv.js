@@ -5,7 +5,7 @@ import axios from 'axios';
 import PlayPage from './PlayPage';
 import Login from '../Login'
 import Cookies from 'js-cookie';
-import { gettv } from '../../redux/tv';
+import { AddBookmarkTv, RemoveBookmarkedTv, gettv } from '../../redux/tv';
 import load from '../images/load1.gif';
 
 
@@ -25,14 +25,11 @@ const Tv = ( type ) => {
         } else {        
             axios.post(`${process.env.REACT_APP_INVOKE}/bookmark`, { email: userName, video_id: value, type: 'tv' })
             .then(response => {
-
-                console.log('Response from server:', response.data.video_id);
-                window.location.reload()
-                // Handle the response data as needed
+                // window.location.reload()
+                dispatch(AddBookmarkTv(response.data));
             })
             .catch(error => {
                 console.log('Error:', error);
-                // Handle errors
             });
         }
     }
@@ -45,13 +42,11 @@ const Tv = ( type ) => {
         } else {        
             axios.delete(`${process.env.REACT_APP_INVOKE}/bookmark/${value}`)
             .then(response => {
-                window.location.reload()
-                console.log(response);
-                // Handle the response data as needed
+                // window.location.reload()
+                dispatch(RemoveBookmarkedTv(response.data.video_id));
             })
             .catch(error => {
                 console.error('Error:', error);
-                // Handle errors
             });
         }
     }
