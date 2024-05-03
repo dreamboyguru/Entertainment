@@ -7,6 +7,7 @@ import PlayPage from '../movies/PlayPage';
 import Login from '../Login'
 import Cookies from 'js-cookie';
 import load from '../images/load1.gif'
+import { AddBookmarkTrend, RemoveBookmarkedTrend } from '../../redux/TrendingSlice';
 
 const Recommended = () => {
     const [showModel, setshowModel] = useState(false);
@@ -27,6 +28,7 @@ const Recommended = () => {
             .then(response => {
                 // window.location.reload()
                 dispatch(AddBookmarkRecommend(response.data));
+                dispatch(AddBookmarkTrend(response.data));
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -44,6 +46,7 @@ const Recommended = () => {
             .then(response => {
                 // window.location.reload();
                 dispatch(RemoveBookmarkedRecommend(response.data.video_id));
+                dispatch(RemoveBookmarkedTrend(response.data.video_id));
             })
             .catch(error => {
                 console.error('Error:', error);
