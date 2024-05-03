@@ -27,7 +27,7 @@ const videoSlice = createSlice({
                 }
             })
         },
-        AddBookmark(state, action) {
+        AddBookmark (state, action) {
             const { _id, email, video_id, type } = action.payload;
             state.video = state.video.map(v => {
                 if (v.id === video_id) {
@@ -35,9 +35,19 @@ const videoSlice = createSlice({
                 }
                 return v;
             });
+        },
+        RemoveBookmarked (state, action) {
+            const video_id = action.payload;
+            state.video = state.video.map(v => {
+                if (v.id === video_id) {
+                    v.joinedData = [] ;
+                    // console.log(video_id);
+                }
+                return v;
+            });
         }
     }
 })
 
-export const {getVideo, AddBookmark} = videoSlice.actions;
+export const {getVideo, AddBookmark, RemoveBookmarked} = videoSlice.actions;
 export default videoSlice.reducer;
