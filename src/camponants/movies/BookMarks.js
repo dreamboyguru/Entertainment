@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useDispatch, useSelector } from 'react-redux';
-import { getbookmarks } from '../../redux/Bookmark';
+import { RemoveBookmarkedAll, getbookmarks } from '../../redux/Bookmark';
 import PlayPage from './PlayPage';
 import { FaBookmark } from 'react-icons/fa';
 import load from '../images/load1.gif';
@@ -30,6 +30,7 @@ const BookMarks = () => {
 
     const fetchData = async () => {
       try {
+            console.log(process.env.REACT_APP_INVOKE);
           const response = await axios.get(`${process.env.REACT_APP_INVOKE}/bookmark/${userName}`);
           // console.log(response.data);
           dispatch(getbookmarks(response.data));
@@ -51,13 +52,11 @@ const BookMarks = () => {
     } else {        
         axios.delete(`${process.env.REACT_APP_INVOKE}/bookmark/${value}`)
         .then(response => {
-            window.location.reload()
-            console.log(response);
-            // Handle the response data as needed
+            // window.location.reload()
+            dispatch(RemoveBookmarkedAll(response.data.video_id));
         })
         .catch(error => {
             console.error('Error:', error);
-            // Handle errors
         });
     }
 }
