@@ -26,9 +26,18 @@ const videoSlice = createSlice({
                     joinedData: video.joinedData
                 }
             })
+        },
+        AddBookmark(state, action) {
+            const { _id, email, video_id, type } = action.payload;
+            state.video = state.video.map(v => {
+                if (v.id === video_id) {
+                    v.joinedData.push({ "_id": _id, "email": email, "video_id": video_id, "type": type });
+                }
+                return v;
+            });
         }
     }
 })
 
-export const {getVideo} = videoSlice.actions;
+export const {getVideo, AddBookmark} = videoSlice.actions;
 export default videoSlice.reducer;
