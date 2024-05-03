@@ -20,7 +20,7 @@ const Movies = ( type ) => {
         const token = Cookies.get('token')
         const userName = Cookies.get('userName')
         if (!token && !userName) {
-            // console.log('token is empty...! Please Login First');
+            console.log('token is empty...! Please Login First');
             setshowModel(true)
         } else {        
             axios.post(`${process.env.REACT_APP_INVOKE}/bookmark`, { email: userName, video_id: value, type: 'movie' })
