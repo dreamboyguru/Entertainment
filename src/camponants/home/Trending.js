@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import '../../App.css'
 import axios from 'axios';
-import { getTrending } from '../../redux/TrendingSlice';
+import { AddBookmarkTrend, RemoveBookmarkedTrend, getTrending } from '../../redux/TrendingSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Login from '../Login'
 import PlayPage from '../movies/PlayPage';
@@ -49,14 +49,11 @@ const Trending = () => {
     } else {        
         axios.post(`${process.env.REACT_APP_INVOKE}/bookmark`, { email: userName, video_id: value, type: type })
         .then(response => {
-
-            console.log('Response from server:', response.data.video_id);
-            window.location.reload()
-            // Handle the response data as needed
+          // window.location.reload()
+          dispatch(AddBookmarkTrend(response.data));
         })
         .catch(error => {
             console.error('Error:', error);
-            // Handle errors
         });
     }
   }
@@ -69,13 +66,11 @@ const Trending = () => {
     } else {        
         axios.delete(`${process.env.REACT_APP_INVOKE}/bookmark/${value}`)
         .then(response => {
-            window.location.reload()
-            console.log(response);
-            // Handle the response data as needed
+            // window.location.reload();
+            dispatch(RemoveBookmarkedTrend(response.data.video_id));
         })
         .catch(error => {
             console.error('Error:', error);
-            // Handle errors
         });
     }
   }
