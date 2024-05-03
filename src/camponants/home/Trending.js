@@ -8,6 +8,7 @@ import Login from '../Login'
 import PlayPage from '../movies/PlayPage';
 import Cookies from 'js-cookie';
 import load from '../images/load1.gif'
+import { AddBookmarkRecommend, RemoveBookmarkedRecommend } from '../../redux/RecommendSlice';
 
 const Trending = () => {
 
@@ -51,6 +52,7 @@ const Trending = () => {
         .then(response => {
           // window.location.reload()
           dispatch(AddBookmarkTrend(response.data));
+          dispatch(AddBookmarkRecommend(response.data));
         })
         .catch(error => {
             console.error('Error:', error);
@@ -68,6 +70,7 @@ const Trending = () => {
         .then(response => {
             // window.location.reload();
             dispatch(RemoveBookmarkedTrend(response.data.video_id));
+            dispatch(RemoveBookmarkedRecommend(response.data.video_id));
         })
         .catch(error => {
             console.error('Error:', error);
