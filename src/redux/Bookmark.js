@@ -28,9 +28,13 @@ const bookmarksSlice = createSlice({
                     joinedData: video.joinedData
                 }
             })
+        },
+        RemoveBookmarkedAll (state, action) {
+            const video_id = action.payload;
+            state.bookmarks = state.bookmarks.filter(video => video.id !== video_id);
         }
     }
 })
 
-export const {getbookmarks} = bookmarksSlice.actions;
+export const {getbookmarks, RemoveBookmarkedAll} = bookmarksSlice.actions;
 export default bookmarksSlice.reducer;
