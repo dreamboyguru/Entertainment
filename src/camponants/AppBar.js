@@ -1,12 +1,13 @@
 import { IoMdSearch } from "react-icons/io";
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdMenuOpen } from "react-icons/md";
 import Login from "./Login";
 import Cookies from "js-cookie";
-import axios from 'axios';
+// import axios from 'axios';
 
 const Navbar = () => {
+    // const [auth, setAuth] = useState(true);
     // console.log(data);
     // const token = Cookies.get('token');
     // useEffect(() => {
@@ -17,8 +18,8 @@ const Navbar = () => {
     //             'authorization': `Bearer ${token}`
     //         }
     //         });
-    //         const temp = (response.data.valid === true && response.status === 200) ? 'Token Valid' : Cookies.remove('token');
-    //         console.log(temp);
+    //         const temp = (response.data.valid === true && response.status === 200) ? true : false;
+    //         setAuth(temp);
     //         // console.log((response.data.valid));
     //     } catch (error) {
     //         console.error('Error fetching data:', error);
@@ -27,7 +28,19 @@ const Navbar = () => {
 
     //     fetchData();
     // }, [token]);
-    const [activeButton, setActiveButton] = useState('home')
+    let pathname = 'home';
+    const path = window.location.pathname;
+    if (path === '/') {
+        pathname = 'home';
+    } else if (path === '/Movies') {
+        pathname = 'movies';
+    } else if (path === '/Tv') {
+        pathname = 'tv';
+    } else if (path === '/BookMarks') {
+        pathname = 'book';
+    }
+    console.log(path);
+    const [activeButton, setActiveButton] = useState(pathname)
     const [isOpen, setIsOpen] = useState(false);
 
     const [showModel, setshowModel] = useState(false);
@@ -70,41 +83,41 @@ const Navbar = () => {
             {/* <MdMenuOpen /> */}
         </div>
         <div className="flex flex-row w-full bg-gray-800 scroll-auto px-10 shadow-xl max-sm:hidden fixed z-30 mt-14">
-            <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-md ${activeButton === 'home' ? 'bg-gray-700' : ''}`}>
+            <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-b-xl ${activeButton === 'home' ? 'bg-gray-700' : ''}`}>
             <Link to='/' onClick={() => setActiveButton('home')} className="text-white text-md max-md:text-sm">Home</Link>
         </div>
-        <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-md ${activeButton === 'movies' ? 'bg-gray-700' : ''}`}>
+        <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-b-xl ${activeButton === 'movies' ? 'bg-gray-700' : ''}`}>
             <Link to='/Movies' onClick={() => setActiveButton('movies')} className="text-white text-md max-md:text-sm">Movies</Link>
         </div>
-        <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-md ${activeButton === 'tv' ? 'bg-gray-700' : ''}`}>
+        <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-b-xl ${activeButton === 'tv' ? 'bg-gray-700' : ''}`}>
             <Link to='/Tv' onClick={() => setActiveButton('tv')} className="text-white text-md max-md:text-sm">Tv Series</Link>
         </div>
-        {/* <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-md ${activeButton === 'web' ? 'bg-gray-700' : ''}`}>
+        {/* <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-b-xl ${activeButton === 'web' ? 'bg-gray-700' : ''}`}>
             <Link to='/Web' onClick={() => setActiveButton('web')} className="text-white text-md max-md:text-sm">Web Series</Link>
         </div> */}
             {userName ? (
-                <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-md ${activeButton === 'book' ? 'bg-gray-700' : ''}`}>
+                <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-b-xl ${activeButton === 'book' ? 'bg-gray-700' : ''}`}>
                     <Link to='/BookMarks' onClick={() => setActiveButton('book')} className="text-white text-md max-md:text-sm">Book Marks</Link>
                 </div>
             ) : (
-                <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-md cursor-pointer ${activeButton === 'book' ? 'bg-gray-700' : ''}`}
+                <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-b-xl cursor-pointer ${activeButton === 'book' ? 'bg-gray-700' : ''}`}
                     onClick={()=> {setshowModel(true); setActiveButton('book')}}
                 >
                     <div to='/BookMarks' className="text-white text-md max-md:text-sm">Book Marks</div>
                 </div>                    
             )} 
-            <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-md ${activeButton === 'sign' ? 'bg-gray-700' : ''}`}>
+            <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-b-xl ${activeButton === 'sign' ? 'bg-gray-700' : ''}`}>
                 {userName? (
                     <div onClick={()=>{
                         Cookies.remove('userName')
                         Cookies.remove('token')
                         navigate('/')
-                        setActiveButton('sign')
+                        setActiveButton('home')
                     }} className="text-white text-md max-md:text-sm cursor-pointer">SignOut</div>
                 ): (
                     <div onClick={()=>{
                         setshowModel(true)
-                        setActiveButton('sign')
+                        setActiveButton('home')
                     }} className="text-white text-md max-md:text-sm cursor-pointer">Sign In</div>
                 )}
             </div>              
