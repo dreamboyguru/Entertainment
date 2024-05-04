@@ -101,7 +101,7 @@ const Navbar = () => {
                 </div>
             ) : (
                 <div className={`w-[8%] hover:bg-gray-700 py-2 max-lg:w-[15%] text-center rounded-b-xl cursor-pointer ${activeButton === 'book' ? 'bg-gray-700' : ''}`}
-                    onClick={()=> {setshowModel(true); setActiveButton('book')}}
+                    onClick={()=> {setshowModel(true)}}
                 >
                     <div to='/BookMarks' className="text-white text-md max-md:text-sm">Book Marks</div>
                 </div>                    
