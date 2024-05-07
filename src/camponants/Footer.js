@@ -6,7 +6,7 @@ function Footer() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="md:flex md:items-center md:justify-between">
                     <div className="flex justify-center md:order-2">
-                        <a href="https://github.com/dreamboyguru" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white ml-6">
+                        <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white ml-6">
                             {/* GitHub icon */}
                             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path fillRule="evenodd" clipRule="evenodd" d="M12 1C5.372 1 0 6.055 0 12.765c0 5.336 3.438 9.85 8.202 11.459.6.112.82-.262.82-.577 0-.285-.015-1.047-.015-2.055-3.006.547-3.793-1.453-3.793-1.453-.513-1.26-1.255-1.596-1.255-1.596-1.028-.703.078-.688.078-.688 1.134.08 1.733 1.17 1.733 1.17 1.007 1.722 2.646 1.224 3.294.935.102-.732.395-1.224.719-1.505-2.52-.285-5.165-1.26-5.165-5.593 0-1.235.438-2.244 1.167-3.036-.12-.282-.507-1.43.114-2.982 0 0 .945-.303 3.095 1.153a10.735 10.735 0 012.755-.376c.93.005 1.87.126 2.755.376 2.15-1.456 3.094-1.153 3.094-1.153.623 1.552.235 2.7.115 2.982.73.792 1.167 1.8 1.167 3.036 0 4.345-2.648 5.303-5.175 5.582.406.35.77 1.042.77 2.096 0 1.514-.014 2.736-.014 3.109 0 .319.216.695.825.575C20.568 22.612 24 18.097 24 12.765 24 6.055 18.628 1 12 1z"/>
