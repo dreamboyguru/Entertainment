@@ -9,6 +9,7 @@ import Index from './admin';
 import AddNew from './admin/AddNew';
 import Tv from './camponants/TV/Tv';
 import Footer from './camponants/Footer';
+import ReviewPage from './camponants/ReviewPage';
 // import Tv from './redux/tv';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
       </Routes>
       
       <Footer />
+      <ReviewPage />
       
     </div>
   );
