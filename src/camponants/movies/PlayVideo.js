@@ -5,6 +5,7 @@ import ReactPlayer from 'react-player';
 
 function PlayVideo({ isVisiblevideo, onClosevideo, videoName }) {
     
+    console.log(videoName);
 
 
     const handleClose = (e) => {

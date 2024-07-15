@@ -53,7 +53,7 @@ function PlayPage({ isVisible, onClose, passData }) {
                         <div className="w-full">
                             <div>
                                 <h1 className="text-4xl max-md:text-lg max-md:font-semibold mb-1">{passData.original_name}</h1>
-                                <h1 className="text-2xl max-md:text-lg">3.9 *****</h1>
+                                <h1 className="text-2xl max-md:text-lg">6.5 / 10</h1>
                             </div>
                             <div className="flex flex-row p-2 max-md:p-0.5">
                                 <div className="w-full">

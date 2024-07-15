@@ -9,6 +9,7 @@ import ReviewPage from '../ReviewPage';
 function PlayPage({ isVisible, onClose, passData }) {
     // console.log(passData)
     const id = (passData === null) ? '' : passData.url_video_id ;
+    // console.log(id);
     const [videoModel, setvideoModel] = useState(false);
     const [videoKey, setVideoKey] = useState('');
     const [data, setData] = useState('');
@@ -60,7 +61,7 @@ function PlayPage({ isVisible, onClose, passData }) {
                 }
                 setData(genre.data.videoKey);
                 // console.log(genre.data.videoKey);
-                console.log(response.data.videoKey);
+                // console.log(response.data.videoKey);
                 // dispatch(getVideo(response.data));
             } catch (err) {
                 console.log(err);
@@ -80,7 +81,7 @@ function PlayPage({ isVisible, onClose, passData }) {
     return (
         <>
         <Login isvisible={showModel} onClose={()=>setshowModel(false)} />
-        <PlayVideo isVisiblevideo={videoModel} onClosevideo={()=>setvideoModel(false)} videoName={videoKey.key} />
+        <PlayVideo isVisiblevideo={videoModel} onClosevideo={()=>setvideoModel(false)} videoName={videoKey?.key} />
         <div className='fixed inset-0 bg-black text-white bg-opacity-25 backdrop-blur-sm h-full w-full z-30 max-md:hidden' id='wrapperr' onClick={(e) => handleClose(e)}>
             <div className='flex flex-col h-[680px] mx-48 mt-5 bg-black rounded-md'>
                 <div className='flex flex-row max-md:flex-col  max-md:mx-2 max-lg:mx-10 max-md:mt-5'>
@@ -171,7 +172,7 @@ function PlayPage({ isVisible, onClose, passData }) {
                     </div>
                 </div>
                 <div className='overflow-y-auto'>
-                    <ReviewPage />
+                    <ReviewPage videoName={videoKey?.key} />
                 </div>
             </div>
         </div>

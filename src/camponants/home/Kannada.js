@@ -30,7 +30,7 @@ const Kannada = () => {
     const fetchData = async () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_INVOKE}/videos/${userName}`);
-            console.log(response.data);
+            // console.log(response.data);
             dispatch(getVideo(response.data));
             setLoading(false)
         } catch (err) {
