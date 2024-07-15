@@ -1,6 +1,10 @@
 import React from 'react'
 import Trending from './Trending'
 import Recommended from './Recommended'
+import Kannada from './Kannada'
+import Hindi from './Hindi'
+import Telagu from './Telagu'
+import Malayalam from './Malayalam'
 
 const Home = () => {
   return (
@@ -9,8 +13,24 @@ const Home = () => {
           <h1 className='text-xl p-3'>Trending</h1>
           <Trending />
         </div>
+        <div>
+          <h1 className='text-xl p-3'>Kannada</h1>
+          <Kannada />
+        </div>
+        <div>
+          <h1 className='text-xl p-3'>Hindi</h1>
+          <Hindi />
+        </div>
+        <div>
+          <h1 className='text-xl p-3'>Telagu</h1>
+          <Telagu />
+        </div>
+        <div>
+          <h1 className='text-xl p-3'>Malayalam</h1>
+          <Malayalam />
+        </div>
         <div >
-        <h1 className='text-xl p-3'>Recommended for You</h1>
+          <h1 className='text-xl p-3'>Recommended for You</h1>
           <Recommended />
         </div>
     </div>

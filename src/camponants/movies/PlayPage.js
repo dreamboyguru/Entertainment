@@ -23,10 +23,44 @@ function PlayPage({ isVisible, onClose, passData }) {
                     response = await axios.get(`${process.env.REACT_APP_INVOKE}/api/videos/${id}`) : 
                     response = await axios.get(`${process.env.REACT_APP_INVOKE}/api/tv/${id}`) ;
                 const genre = await axios.get(`${process.env.REACT_APP_INVOKE}/api/video/genre/${id}`);
-                setVideoKey(response.data.videoKey);
+                if(response.data.videoKey === undefined) {
+                    setVideoKey([
+                        {id : "5ff7f521383df2003e31909c",
+                            iso_639_1
+                            : 
+                            "en",
+                            iso_3166_1
+                            : 
+                            "US",
+                            key
+                            : 
+                            "Qah9sSIXJqk",
+                            name
+                            : 
+                            "KGF Chapter2 TEASER | English",
+                            official
+                            : 
+                            true,
+                            published_at
+                            : 
+                            "2021-01-07T15:57:35.000Z",
+                            site
+                            : 
+                            "YouTube",
+                            size
+                            : 
+                            2160,
+                            type
+                            : 
+                            "Teaser"
+                        }
+                    ]);
+                } else {
+                    setVideoKey(response.data.videoKey);
+                }
                 setData(genre.data.videoKey);
                 // console.log(genre.data.videoKey);
-                // console.log(response.data.videoKey);
+                console.log(response.data.videoKey);
                 // dispatch(getVideo(response.data));
             } catch (err) {
                 console.log(err);

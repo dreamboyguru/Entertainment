@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import '../../App.css'
 import axios from 'axios';
-import { AddBookmarkTrend, RemoveBookmarkedTrend, getTrending } from '../../redux/TrendingSlice';
+import { AddBookmarkTrend, RemoveBookmarkedTrend } from '../../redux/TrendingSlice';
+import { getVideo, AddBookmark, RemoveBookmarked } from '../../redux/VideoSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Login from '../Login'
 import PlayPage from '../movies/PlayPage';
 import Cookies from 'js-cookie';
 import load from '../images/load1.gif'
 import { AddBookmarkRecommend, RemoveBookmarkedRecommend } from '../../redux/RecommendSlice';
-import { AddBookmark, RemoveBookmarked } from '../../redux/VideoSlice';
 
-const Trending = () => {
+const Telagu = () => {
 
   const userName = Cookies.get('userName')
  
@@ -21,7 +21,7 @@ const Trending = () => {
   const [showModel, setshowModel] = useState(false);
 
   const dispatch = useDispatch();
-  const TrendingVideo = useSelector((state)=> state.trending.trending);
+  const video = useSelector((state)=> state.video.video);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
@@ -29,9 +29,9 @@ const Trending = () => {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_INVOKE}/trending/${userName}`);
-            // console.log(response.data);
-            dispatch(getTrending(response.data));
+            const response = await axios.get(`${process.env.REACT_APP_INVOKE}/videos/${userName}`);
+            console.log(response.data);
+            dispatch(getVideo(response.data));
             setLoading(false)
         } catch (err) {
             console.log(err);
@@ -89,50 +89,54 @@ const Trending = () => {
       <PlayPage isVisible={playPageVisible} onClose={()=>setPlayPageVisible(false)} passData={data}/>
       <div className='flex flex-row h-auto overflow-hidden overflow-x-scroll  sm:scrollbar-hidden max-md:h-auto'>
         {(loading) ? (<img src={load} alt='Loading...' className='w-[97%] h-96' />) : 
-          TrendingVideo.map((item, index) => (
-          <div className='relative bg-gray-800 m-2 p-1 rounded-lg min-w-[20%] max-w[15%] h-auto max-md:min-w-[75%] max-md:max-w[75%]  max-md:mb-7 transition duration-300 ease-in-out transform hover:scale-105' key={index}>
-            <img 
-                src={`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`}
-                alt='prop'
-                className='w-full h-40 rounded-lg shadow-lg hover:shadow-xl cursor-pointer'
-                onClick={() => {
-                setPlayPageVisible(true)
-                setData(item)
-                }}
-            />
-              {
-              (item.joinedData[0] === undefined) ? (
-                  
-                  <div>
-                      <button className='bg-gray-700 text-white hover:text-gray-950 absolute top-2 right-2 rounded-3xl w-7 h-7' 
+          video.map((item, index) => {
+            if (item.original_language === 'te') {
+              return(
+                <div className='relative bg-gray-800 m-2 p-1 rounded-lg min-w-[20%] max-w[15%] h-auto max-md:min-w-[75%] max-md:max-w[75%]  max-md:mb-7 transition duration-300 ease-in-out transform hover:scale-105' key={index}>
+                  <img 
+                      src={`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`}
+                      alt='prop'
+                      className='w-full h-40 rounded-lg shadow-lg hover:shadow-xl cursor-pointer'
+                      onClick={() => {
+                      setPlayPageVisible(true)
+                      setData(item)
+                      }}
+                  />
+                    {
+                    (item.joinedData[0] === undefined) ? (
+                        
+                        <div>
+                            <button className='bg-gray-700 text-white hover:text-gray-950 absolute top-2 right-2 rounded-3xl w-7 h-7' 
+                                onClick={() => {
+                                    handleAddBookmark(item.id, item.type)
+                                }}
+                            >
+                                <FaRegBookmark className='ml-1.5' />
+                            </button>
+                        </div>
+                    ) : (
+                      <button className='bg-gray-700 absolute top-2 right-2 rounded-3xl w-7 h-7'
                           onClick={() => {
-                              handleAddBookmark(item.id, item.type)
+                              handleRemoveBookmark(item.id)
                           }}
                       >
-                          <FaRegBookmark className='ml-1.5' />
+                          <FaBookmark className='ml-1.5' />
                       </button>
-                  </div>
-              ) : (
-                <button className='bg-gray-700 absolute top-2 right-2 rounded-3xl w-7 h-7'
-                    onClick={() => {
-                        handleRemoveBookmark(item.id)
-                    }}
-                >
-                    <FaBookmark className='ml-1.5' />
-                </button>
-              )}
-              <div className='flex justify-between items-center p-1 w-full'>
-                <div className='flex-col w-full'>
-                  <div className='flex flex-row text-xs'>
-                      <div className=''>{item.release_date.split('-')[0]}</div>
-                      <div className='flex-grow text-center'>{item.type}</div>
-                      <div className='mr-2'>{item.adult === 'false' ? 'U/A' : 'U'}</div>
-                  </div>
-                  <h3 className='text-md font-semibold w-full overflow-x-auto whitespace-nowrap' style={{scrollbarWidth: 'none'}}>{item.original_title}</h3>
+                    )}
+                    <div className='flex justify-between items-center p-1 w-full'>
+                      <div className='flex-col w-full'>
+                        <div className='flex flex-row text-xs'>
+                            <div className=''>{item.release_date.split('-')[0]}</div>
+                            <div className='flex-grow text-center'>{item.type}</div>
+                            <div className='mr-2'>{item.adult === 'false' ? 'U/A' : 'U'}</div>
+                        </div>
+                        <h3 className='text-md font-semibold w-full overflow-x-auto whitespace-nowrap' style={{scrollbarWidth: 'none'}}>{item.original_title}</h3>
+                      </div>
+                    </div>
                 </div>
-              </div>
-          </div>
-        ))}
+              )
+            }
+          })}
       </div>
     </div>
 
@@ -142,4 +146,4 @@ const Trending = () => {
   )
 }
 
-export default Trending
+export default Telagu

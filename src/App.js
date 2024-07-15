@@ -10,12 +10,14 @@ import AddNew from './admin/AddNew';
 import Tv from './camponants/TV/Tv';
 import Footer from './camponants/Footer';
 import ReviewPage from './camponants/ReviewPage';
+import Kannada from './camponants/home/Kannada';
 // import Tv from './redux/tv';
 
 function App() {
   return (
     <div className='h-screen text-white'>
       {/* <h1 className='text-2xl font-extrabold float-riogth'>Hello dear</h1> */}
+
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
@@ -29,7 +31,7 @@ function App() {
       </Routes>
       
       <Footer />
-      <ReviewPage />
+      {/* <ReviewPage /> */}
       
     </div>
   );

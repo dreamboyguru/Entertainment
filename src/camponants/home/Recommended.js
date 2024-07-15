@@ -8,6 +8,7 @@ import Login from '../Login'
 import Cookies from 'js-cookie';
 import load from '../images/load1.gif'
 import { AddBookmarkTrend, RemoveBookmarkedTrend } from '../../redux/TrendingSlice';
+import { AddBookmark, RemoveBookmarked } from '../../redux/VideoSlice';
 
 const Recommended = () => {
     const [showModel, setshowModel] = useState(false);
@@ -29,6 +30,7 @@ const Recommended = () => {
                 // window.location.reload()
                 dispatch(AddBookmarkRecommend(response.data));
                 dispatch(AddBookmarkTrend(response.data));
+                dispatch(AddBookmark(response.data));
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -47,6 +49,7 @@ const Recommended = () => {
                 // window.location.reload();
                 dispatch(RemoveBookmarkedRecommend(response.data.video_id));
                 dispatch(RemoveBookmarkedTrend(response.data.video_id));
+                dispatch(RemoveBookmarked(response.data.video_id));
             })
             .catch(error => {
                 console.error('Error:', error);
