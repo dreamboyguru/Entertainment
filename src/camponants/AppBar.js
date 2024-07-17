@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 // import axios from 'axios';
 
 const Navbar = () => {
+    const adminAuth = localStorage.getItem('adminAuth');
     // const [auth, setAuth] = useState(true);
     // console.log(data);
     // const token = Cookies.get('token');
@@ -58,7 +59,7 @@ const Navbar = () => {
     }
   
   return (
-    <nav className=''>
+    <nav className={`${adminAuth ? 'hidden' : ''}`}>
         <Login isvisible={showModel} onClose={()=>setshowModel(false)} />
         
         <div className="flex flex-row bg-gray-700 w-full px-10 py-2 shadow-2xl fixed z-30">

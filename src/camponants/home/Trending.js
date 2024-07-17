@@ -12,7 +12,7 @@ import { AddBookmarkRecommend, RemoveBookmarkedRecommend } from '../../redux/Rec
 import { AddBookmark, RemoveBookmarked } from '../../redux/VideoSlice';
 
 const Trending = () => {
-
+  localStorage.removeItem('adminAuth')
   const userName = Cookies.get('userName')
  
   const [playPageVisible, setPlayPageVisible] = useState(false);
