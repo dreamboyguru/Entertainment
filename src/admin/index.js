@@ -9,6 +9,7 @@ import { IoMdCloseCircle } from 'react-icons/io';
 
 function Index() {
   const url = process.env.REACT_APP_INVOKE;
+  console.log(url);
   const [selectedLanguage, setSelectedLanguage] = useState('all');
   const [length, setLength] = useState(1);
     const adminAuth = localStorage.getItem('adminAuth');

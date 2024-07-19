@@ -6,6 +6,7 @@ import { Field, Form, Formik } from 'formik';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
  
 
 // Share component for displaying sharing options
@@ -14,12 +15,17 @@ const Share = ({ isvisible, onClose }) => {
     const [SignUpModel, setSignUpModel] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('')
+    const [passwordShow, setPasswordShow] = useState(false);
     // Function to close the Share modal
     const handleClose = (e) => {
         if(e.target.id === 'wrapper') return onClose();
     }
     // Return null if the modal is not visible
     if (!isvisible) return null
+
+    const handleShowPassword = () => {
+        setPasswordShow(!passwordShow);
+    }
 
     // JSX for the Share component
     return (
@@ -99,11 +105,17 @@ const Share = ({ isvisible, onClose }) => {
                                     className='font-bold'
                                 >Enter Password</label>
                                 <Field 
-                                    type='password'
+                                    type={passwordShow ? 'text' : 'password'}
                                     id='password'
                                     name='password'
                                     className='border-2 rounded-md border-black h-10'
                                 />
+                                <div className='relative'>
+                                    <span 
+                                        class="absolute text-2xl toggle-password -top-8 right-2 cursor-pointer"
+                                        onClick={()=>handleShowPassword()}
+                                    >{passwordShow ? <FaEye /> : <FaEyeSlash />}</span>
+                                </div>
                             </div>
                             <div className='flex flex-col mx-10 p-2 max-sm:mx-2'>
                                 <button 

@@ -4,17 +4,27 @@ import { ErrorMessage, Form, Field, Formik } from 'formik'
 import { RxCross2 } from "react-icons/rx";
 import { SignUpSchema } from './schema';
 import axios from 'axios';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 
 // Share component for displaying sharing options
 const Share = ({ isvisible, onClose }) => {
     // Function to close the Share modal
     const [isLoading, setIsLoading] = useState(false);
+    const [passwordShow, setPasswordShow] = useState(false);
+    const [rePasswordShow, setRePasswordShow] = useState(false);
     const handleClose = (e) => {
         if(e.target.id === 'wrapper') return onClose();
     }
     // Return null if the modal is not visible
     if (!isvisible) return null
+
+    const handleShowPassword = () => {
+        setPasswordShow(!passwordShow);
+    }
+    const handleConfirmShowPassword = () => {
+        setRePasswordShow(!rePasswordShow);
+    }
 
     // JSX for the Share component
     return (
@@ -100,10 +110,17 @@ const Share = ({ isvisible, onClose }) => {
                         <div className='flex flex-col mx-10 p-2 max-sm:mx-2'>
                             <label htmlFor='Password' className='font-bold'>Set Password</label>
                             <Field 
-                                type='password'
+                                type={passwordShow ? 'text' : 'password'}
                                 name='Password'
                                 id='Password'
-                                className='border-2 border-gray-400 h-10 rounded-md' />
+                                className='border-2 border-gray-400 h-10 rounded-md' 
+                            />
+                            <div className='relative'>
+                                <span 
+                                    class="absolute text-2xl toggle-password -top-8 right-2 cursor-pointer"
+                                    onClick={()=>handleShowPassword()}
+                                >{passwordShow ? <FaEye /> : <FaEyeSlash />}</span>
+                            </div>
                             <div className='text-red-600'>
                                 <ErrorMessage name='Password' />
                             </div>
@@ -113,10 +130,17 @@ const Share = ({ isvisible, onClose }) => {
                             <label 
                                 htmlFor='RePassword' className='font-bold'>ReEnter Password</label>
                             <Field 
-                                type='password'
+                                type={rePasswordShow ? 'text' : 'password'}
                                 id='RePassword'
                                 name='RePassword'
-                                className='border-2 border-gray-400 h-10 rounded-md'/>
+                                className='border-2 border-gray-400 h-10 rounded-md'
+                            />
+                            <div className='relative'>
+                                <span 
+                                    class="absolute text-2xl toggle-password -top-8 right-2 cursor-pointer"
+                                    onClick={()=>handleConfirmShowPassword()}
+                                >{rePasswordShow ? <FaEye /> : <FaEyeSlash />}</span>
+                            </div>
                             <div className='text-red-600'>
                                 <ErrorMessage name='RePassword' />
                             </div>
