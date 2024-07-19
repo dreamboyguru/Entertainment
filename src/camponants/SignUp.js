@@ -77,7 +77,7 @@ const Share = ({ isvisible, onClose }) => {
                             <Field type='text' 
                                 name='Name'
                                 id='Name'
-                                className='border-2 border-gray-400 h-10 rounded-md' />
+                                className='px-2 border-2 border-gray-400 h-10 rounded-md' />
                             <div className='text-red-600'>
                                 <ErrorMessage name='Name' />
                             </div>
@@ -89,7 +89,7 @@ const Share = ({ isvisible, onClose }) => {
                                 type='text'
                                 name='Email'
                                 id='Email'
-                                className='border-2 border-gray-400 h-10 rounded-md' />
+                                className='px-2 border-2 border-gray-400 h-10 rounded-md' />
                             <div className='text-red-600'>
                                 <ErrorMessage name='Email' />
                             </div>
@@ -101,7 +101,7 @@ const Share = ({ isvisible, onClose }) => {
                                 type='date'
                                 name='DOB'
                                 id='DOB'
-                                className='border-2 border-gray-400 h-10 rounded-md' />
+                                className='px-2 border-2 border-gray-400 h-10 rounded-md' />
                             <div className='text-red-600'>
                                 <ErrorMessage name='DOB' />
                             </div>
@@ -113,7 +113,7 @@ const Share = ({ isvisible, onClose }) => {
                                 type={passwordShow ? 'text' : 'password'}
                                 name='Password'
                                 id='Password'
-                                className='border-2 border-gray-400 h-10 rounded-md' 
+                                className='px-2 border-2 border-gray-400 h-10 rounded-md' 
                             />
                             <div className='relative'>
                                 <span 
@@ -133,7 +133,7 @@ const Share = ({ isvisible, onClose }) => {
                                 type={rePasswordShow ? 'text' : 'password'}
                                 id='RePassword'
                                 name='RePassword'
-                                className='border-2 border-gray-400 h-10 rounded-md'
+                                className='px-2 border-2 border-gray-400 h-10 rounded-md'
                             />
                             <div className='relative'>
                                 <span 

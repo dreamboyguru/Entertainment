@@ -96,7 +96,7 @@ const Share = ({ isvisible, onClose }) => {
                                     type='text'
                                     id='userName'
                                     name='userName'
-                                    className='border-2 rounded-md border-black h-10'
+                                    className='px-2 border-2 rounded-md border-black h-10'
                                 />
                             </div>
                             <div className='flex flex-col mx-10 p-2 max-sm:mx-2'>
@@ -108,7 +108,7 @@ const Share = ({ isvisible, onClose }) => {
                                     type={passwordShow ? 'text' : 'password'}
                                     id='password'
                                     name='password'
-                                    className='border-2 rounded-md border-black h-10'
+                                    className='px-2 border-2 rounded-md border-black h-10'
                                 />
                                 <div className='relative'>
                                     <span 
